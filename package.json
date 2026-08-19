@@ -1,0 +1,20 @@
+{
+  "name": "wholesale-photoframe-system",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Full-stack Wholesale Photoframe Sales & Distribution Management System",
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "dev": "concurrently \"npm run dev --workspace server\" \"npm run dev --workspace client\"",
+    "build": "npm run build --workspace server && npm run build --workspace client",
+    "typecheck": "npm run typecheck --workspace server && npm run typecheck --workspace client",
+    "seed": "npm run seed --workspace server"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
