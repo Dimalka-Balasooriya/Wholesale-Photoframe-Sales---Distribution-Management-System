@@ -11,7 +11,7 @@ type HelmetFactory = () => RequestHandler;
 const helmet = ((helmetModule as unknown as { default?: HelmetFactory }).default ??
   (helmetModule as unknown as HelmetFactory));
 
-export const app = express();
+const app = express();
 
 app.use(helmet());
 app.use(
@@ -29,3 +29,5 @@ app.use((_req, res) => {
 });
 
 app.use(errorHandler);
+
+export default app;
