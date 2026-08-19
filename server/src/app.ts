@@ -1,9 +1,15 @@
 import cors from 'cors';
 import express from 'express';
-import helmet from 'helmet';
+import type { RequestHandler } from 'express';
+import * as helmetModule from 'helmet';
 import { env } from './config/env.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { apiRoutes } from './routes/index.js';
+
+type HelmetFactory = () => RequestHandler;
+
+const helmet = ((helmetModule as unknown as { default?: HelmetFactory }).default ??
+  (helmetModule as unknown as HelmetFactory));
 
 export const app = express();
 
