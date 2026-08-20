@@ -1,6 +1,13 @@
 import type { LoginResponse } from '../types/auth';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '/api';
+function toApiBaseUrl(baseUrl?: string) {
+  if (!baseUrl) return '/api';
+
+  const normalizedUrl = baseUrl.replace(/\/+$/, '');
+  return normalizedUrl.endsWith('/api') ? normalizedUrl : `${normalizedUrl}/api`;
+}
+
+const API_BASE_URL = toApiBaseUrl(import.meta.env.VITE_API_URL);
 
 export class ApiError extends Error {
   constructor(
