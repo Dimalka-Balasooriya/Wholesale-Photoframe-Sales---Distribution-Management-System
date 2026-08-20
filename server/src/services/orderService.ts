@@ -444,10 +444,11 @@ export async function updateOrderStatus(params: {
     );
     const order = rows[0];
     if (!order) throw new Error('Order not found');
+    const currentStatus = order.order_status;
 
-    const allowed = statusTransitions[order.order_status];
+    const allowed = statusTransitions[currentStatus];
     if (!allowed.includes(params.newStatus)) {
-      throw new Error(`Invalid status transition from ${order.order_status} to ${params.newStatus}`);
+      throw new Error(`Invalid status transition from ${currentStatus} to ${params.newStatus}`);
     }
 
     await connection.execute(
@@ -459,7 +460,7 @@ export async function updateOrderStatus(params: {
        VALUES (:orderId, :previousStatus, :newStatus, :changedBy, :note)`,
       {
         orderId: params.orderId,
-        previousStatus: order.order_status,
+        previousStatus: currentStatus,
         newStatus: params.newStatus,
         changedBy: params.changedBy,
         note: params.note ?? null

@@ -1,5 +1,6 @@
 {
-  "buildCommand": "npm run build --workspace server",
+  "installCommand": "cd server && npm install",
+  "buildCommand": "cd server && npm run build",
   "rewrites": [
     {
       "source": "/api/(.*)",
