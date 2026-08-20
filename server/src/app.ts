@@ -12,9 +12,12 @@ type HelmetFactory = () => RequestHandler;
 const helmet = ((helmetModule as unknown as { default?: HelmetFactory }).default ??
   (helmetModule as unknown as HelmetFactory));
 
+const deployedClientOrigins = ['https://wholesale-photoframe-sales-distribu-sigma.vercel.app'];
+
 const allowedClientOrigins = env.CLIENT_ORIGIN.split(',')
   .map((origin) => origin.trim())
-  .filter(Boolean);
+  .filter(Boolean)
+  .concat(deployedClientOrigins);
 
 function getVercelPreviewPrefix(origin: string) {
   try {
